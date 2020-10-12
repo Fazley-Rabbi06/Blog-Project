@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html dir="ltr"lang="en"> 
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title_block %} Blogs {% endblock %}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+         <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+         <!-- Latest compiled JavaScript -->
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+         
+         <script src="https://kit.fontawesome.com/df419aee0b.js" crossorigin="anonymous"></script>
+         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'index' %}"><img src="/media/blog_image/blog.jpg" class="rounded-circle"alt="Blog Logo"width="35px">
+                </li></a>
+                
+            {% if user.is_authenticated %}
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle"id="navbardrop"data-toggle="dropdown" href="#">
+                    @{{user.username}}
+                    <!-- <img src="/media/{{user.userprofile.profile_pic}}" width="30px" alt="" class="rounded-circle"> -->
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'App_Blog:create_blog' %}">Write Blog</a>
+                    <a class="dropdown-item" href="{% url 'App_Blog:my_blogs' %}">My Blogs</a>
+                    <a class="dropdown-item" href="{% url 'App_Login:profile' %}">Your Profile</a>
+                    <hr>
+                    <a class="dropdown-item" href="{% url 'App_Login:logout' %}">Logout</a>
+                </div>    
+            </div>
+            {% else %}
+            <li class="nav-item ">
+                <a class="nav-link" href="{% url 'App_Login:signup' %}">Sign Up</a>
+             </li>
+             <li class="nav-item ">
+                <a class="nav-link" href="{% url 'App_Login:login' %}">Login</a>
+             </li>
+            {% endif %}
+            </ul>
+          </nav>
+          <div class="container"style="padding-top:20px">
+              {% block body_block %}
+
+              {% endblock %}
+          </div>
+    </body>
+</html>
